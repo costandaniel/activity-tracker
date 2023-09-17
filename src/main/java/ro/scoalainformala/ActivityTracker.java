@@ -19,7 +19,7 @@ public class ActivityTracker {
                 case 1 -> Service.addNewActivity();
                 case 2 -> Service.listAllDays();
                 case 3 -> Service.displayStepsForDay();
-                case 4 -> "";
+                case 4 -> Service.updateStepsForDay();
                 case 5 -> "";
                 case 6 -> "";
                 case 7 -> "";

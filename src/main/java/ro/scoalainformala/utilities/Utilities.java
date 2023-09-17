@@ -1,10 +1,7 @@
 package ro.scoalainformala.utilities;
 
-import ro.scoalainformala.business.Service;
-
 import java.time.LocalDate;
 import java.time.Year;
-import java.util.Date;
 
 public class Utilities {
 
@@ -104,9 +101,9 @@ public class Utilities {
         String concatenated = "";
         for (int i = 0; i < days.length; i++) {
             if (i == days.length - 1) {
-                concatenated = concatenated + days[i] + " - " + steps[i];
+                concatenated = concatenated + days[i] + " - " + steps[i] + " steps";
             } else {
-                concatenated = concatenated + days[i] + " - " + steps[i] + ", " +"\n";
+                concatenated = concatenated + days[i] + " - " + steps[i] + " steps" + ", " + "\n";
             }
         }
 
