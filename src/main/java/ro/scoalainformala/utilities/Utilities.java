@@ -9,7 +9,6 @@ import java.util.Date;
 public class Utilities {
 
     public static String formatDate(int year, int month, int day) {
-
         if (year < Year.now().getValue() - 2 || year > Year.now().getValue()) {
             return "Invalid year";
         }
@@ -70,7 +69,6 @@ public class Utilities {
     }
 
     public static int[] addIntArray(int[] firstArray, int elementToAdd) {
-
         int[] newArray = new int[firstArray.length + 1];
 
         if (firstArray.length == 0) {
@@ -87,7 +85,6 @@ public class Utilities {
     }
 
     public static String[] addStringArray(String[] firstArray, String elementToAdd) {
-
         String[] newArray = new String[firstArray.length + 1];
 
         if (firstArray.length == 0) {
@@ -101,6 +98,40 @@ public class Utilities {
             return newArray;
         }
 
+    }
+
+    public static String concatenateDaySteps(String[] days, int[] steps) {
+        String concatenated = "";
+        for (int i = 0; i < days.length; i++) {
+            if (i == days.length - 1) {
+                concatenated = concatenated + days[i] + " - " + steps[i];
+            } else {
+                concatenated = concatenated + days[i] + " - " + steps[i] + ", " +"\n";
+            }
+        }
+
+        return concatenated;
+    }
+
+    public static int stringBinarySearch(String[] daysStepsArray, String stringToFind) {
+        int lowIndex = 0;
+        int highIndex = daysStepsArray.length - 1;
+
+        while (lowIndex <= highIndex) {
+            int middleIndex = lowIndex + (highIndex - lowIndex) / 2;
+
+            if (stringToFind.compareTo(daysStepsArray[middleIndex]) == 0) {
+                return middleIndex;
+            }
+
+            if (stringToFind.compareTo(daysStepsArray[middleIndex]) > 0) {
+                lowIndex = middleIndex + 1;
+            } else {
+                highIndex = middleIndex - 1;
+            }
+        }
+
+        return -1;
     }
 
 }

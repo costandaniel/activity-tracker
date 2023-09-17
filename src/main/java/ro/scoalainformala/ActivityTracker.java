@@ -17,8 +17,8 @@ public class ActivityTracker {
             // switch expression
             String result = switch (option) {
                 case 1 -> Service.addNewActivity();
-                case 2 -> "";
-                case 3 -> "";
+                case 2 -> Service.listAllDays();
+                case 3 -> Service.displayStepsForDay();
                 case 4 -> "";
                 case 5 -> "";
                 case 6 -> "";
