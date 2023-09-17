@@ -14,8 +14,10 @@ public class Utilities {
             return "Invalid year";
         }
 
-        if (month > LocalDate.now().getMonthValue() || day > LocalDate.now().getDayOfMonth()) {
-            return "Invalid month or day";
+        if (month > LocalDate.now().getMonthValue()) {
+            return "Invalid month";
+        } else if (month == LocalDate.now().getMonthValue() && day > LocalDate.now().getDayOfMonth()) {
+            return "Invalid day";
         }
 
         String newMonth = switch (month) {
@@ -65,6 +67,40 @@ public class Utilities {
         }
 
         return newMonth + " " + day + ", " + year;
+    }
+
+    public static int[] addIntArray(int[] firstArray, int elementToAdd) {
+
+        int[] newArray = new int[firstArray.length + 1];
+
+        if (firstArray.length == 0) {
+            newArray[0] = elementToAdd;
+            return newArray;
+        } else {
+            for (int i = 0; i < firstArray.length; i++) {
+                newArray[i] = firstArray[i];
+            }
+            newArray[firstArray.length] = elementToAdd;
+            return newArray;
+        }
+
+    }
+
+    public static String[] addStringArray(String[] firstArray, String elementToAdd) {
+
+        String[] newArray = new String[firstArray.length + 1];
+
+        if (firstArray.length == 0) {
+            newArray[0] = elementToAdd;
+            return newArray;
+        } else {
+            for (int i = 0; i < firstArray.length; i++) {
+                newArray[i] = firstArray[i];
+            }
+            newArray[firstArray.length] = elementToAdd;
+            return newArray;
+        }
+
     }
 
 }
