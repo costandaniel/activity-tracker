@@ -11,7 +11,6 @@ public class Service {
     static String[] daysArray = {};
 
     public static String addNewActivity() {
-
         System.out.print("Add new date in the format 'yyyy-MM-dd': ");
         String date = Utilities.getDate(scanner.next());
         int indexOfDay = Utilities.stringBinarySearch(daysArray, date);
