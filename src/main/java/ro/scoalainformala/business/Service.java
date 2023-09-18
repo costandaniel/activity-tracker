@@ -9,13 +9,15 @@ public class Service {
     static Scanner scanner = new Scanner(System.in);
     static int[] stepsArray = {};
     static String[] daysArray = {};
+    static String invalid = "Invalid";
+    static String noActivityAddedYet = "No activity added yet";
 
     public static String addNewActivity() {
         System.out.print("Add new date in the format 'yyyy-MM-dd': ");
         String date = Utilities.getDate(scanner.next());
         int indexOfDay = Utilities.stringBinarySearch(daysArray, date);
 
-        if (date.contains("Invalid")) {
+        if (date.contains(invalid)) {
             return date;
         } else {
             if (indexOfDay != -1) {
@@ -38,7 +40,7 @@ public class Service {
 
     public static String listAllDays() {
         if (daysArray.length == 0) {
-            return "No activity added yet";
+            return noActivityAddedYet;
         }
 
         return Utilities.concatenateDaySteps(daysArray, stepsArray);
@@ -49,7 +51,7 @@ public class Service {
         String date = Utilities.getDate(scanner.next());
         int indexOfDay = Utilities.stringBinarySearch(daysArray, date);
 
-        if (date.contains("Invalid")) {
+        if (date.contains(invalid)) {
             return date;
         } else {
             if (indexOfDay == -1) {
@@ -65,7 +67,7 @@ public class Service {
         String date = Utilities.getDate(scanner.next());
         int indexOfDay = Utilities.stringBinarySearch(daysArray, date);
 
-        if (date.contains("Invalid")) {
+        if (date.contains(invalid)) {
             return date;
         } else {
             if (indexOfDay == -1) {
@@ -86,7 +88,7 @@ public class Service {
 
     public static String displayMostActiveDay() {
         if (daysArray.length == 0) {
-            return "No activity added yet";
+            return noActivityAddedYet;
         }
 
         int maximum = stepsArray[0];
@@ -103,7 +105,7 @@ public class Service {
 
     public static String displayLeastActiveDay() {
         if (daysArray.length == 0) {
-            return "No activity added yet";
+            return noActivityAddedYet;
         }
 
         int minimum = stepsArray[0];
@@ -120,7 +122,7 @@ public class Service {
 
     public static String displayAverageStepsPerDay() {
         if (daysArray.length == 0) {
-            return "No activity added yet";
+            return noActivityAddedYet;
         }
 
         int sum = 0;
