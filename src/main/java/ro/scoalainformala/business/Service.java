@@ -73,4 +73,32 @@ public class Service {
 
         return "Activity successfully updated for " + newDate;
     }
+
+    public static String displayMostActiveDay() {
+
+        int maximum = stepsArray[0];
+        int indexOfMaximum = 0;
+        for (int i = 1; i < stepsArray.length; i++) {
+            if (stepsArray[i] > maximum) {
+                maximum = stepsArray[i];
+                indexOfMaximum = i;
+            }
+        }
+
+        return "The most active day is " + daysArray[indexOfMaximum];
+    }
+
+    public static String displayLeastActiveDay() {
+
+        int minimum = stepsArray[0];
+        int indexOfMinimum = 0;
+        for (int i = 1; i < stepsArray.length; i++) {
+            if (stepsArray[i] < minimum) {
+                minimum = stepsArray[i];
+                indexOfMinimum = i;
+            }
+        }
+
+        return "The least active day is " + daysArray[indexOfMinimum];
+    }
 }
