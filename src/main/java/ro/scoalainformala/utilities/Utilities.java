@@ -10,10 +10,12 @@ public class Utilities {
             return "Invalid year";
         }
 
-        if (month > LocalDate.now().getMonthValue()) {
+        String invalidDay = "Invalid day";
+
+        if (month > LocalDate.now().getMonthValue() || month == 0) {
             return "Invalid month";
         } else if (month == LocalDate.now().getMonthValue() && day > LocalDate.now().getDayOfMonth()) {
-            return "Invalid day";
+            return invalidDay;
         }
 
         String newMonth = switch (month) {
@@ -33,36 +35,44 @@ public class Utilities {
         };
 
         if (day < 1) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Jan") && day > 31) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Mar") && day > 31) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Apr") && day > 30) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("May") && day > 31) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Jun") && day > 30) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Jul") && day > 31) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Aug") && day > 31) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Sep") && day > 30) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Oct") && day > 31) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Nov") && day > 30) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Dec") && day > 31) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Feb") && year / 4 == 0 && day > 29) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         } else if (newMonth.equals("Feb") && year / 4 != 0 && day > 28) {
-            System.out.println("Invalid day");
+            System.out.println(invalidDay);
         }
 
         return newMonth + " " + day + ", " + year;
+    }
+
+    public static String getDate(String date) {
+        if (date.substring(0, 4).contains("-") || date.substring(5, 7).contains("-") || date.substring(8, 10).contains("-") || Integer.parseInt(date.substring(8, 10)) == 0) {
+            return "Invalid date input";
+        }
+        return formatDate(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)),
+                Integer.parseInt(date.substring(8, 10)));
     }
 
     public static int[] addIntArray(int[] firstArray, int elementToAdd) {

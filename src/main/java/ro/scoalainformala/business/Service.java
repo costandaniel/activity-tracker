@@ -13,22 +13,28 @@ public class Service {
     public static String addNewActivity() {
 
         System.out.print("Add new date in the format 'yyyy-MM-dd': ");
-        String date = scanner.next();
-        String newDate = Utilities.formatDate(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)),
-                Integer.parseInt(date.substring(8, 10)));
-        int indexOfDay = Utilities.stringBinarySearch(daysArray, newDate);
+        String date = Utilities.getDate(scanner.next());
+        int indexOfDay = Utilities.stringBinarySearch(daysArray, date);
 
-        if (indexOfDay != -1) {
-            return "This day already exists";
+        if (date.contains("Invalid")) {
+            return date;
         } else {
-            daysArray = Utilities.addStringArray(daysArray, newDate);
+            if (indexOfDay != -1) {
+                return date + " already exists";
+            } else {
+                daysArray = Utilities.addStringArray(daysArray, date);
+            }
+            System.out.print("Add number of steps: ");
+            int numberOfSteps;
+            if (scanner.hasNextInt()) {
+                numberOfSteps = scanner.nextInt();
+                stepsArray = Utilities.addIntArray(stepsArray, numberOfSteps);
+            } else {
+                return "Invalid steps input";
+            }
         }
 
-        System.out.print("Add number of steps: ");
-        int numberOfSteps = scanner.nextInt();
-        stepsArray = Utilities.addIntArray(stepsArray, numberOfSteps);
-
-        return "Activity successfully added for " + newDate;
+        return "Activity successfully added for " + date;
     }
 
     public static String listAllDays() {
@@ -37,40 +43,42 @@ public class Service {
 
     public static String displayStepsForDay() {
         System.out.print("Type the date in the format 'yyyy-MM-dd': ");
-        String date = scanner.next();
+        String date = Utilities.getDate(scanner.next());
+        int indexOfDay = Utilities.stringBinarySearch(daysArray, date);
 
-        String newDate = Utilities.formatDate(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)),
-                Integer.parseInt(date.substring(8, 10)));
-
-        int indexOfDay = Utilities.stringBinarySearch(daysArray, newDate);
-        if (indexOfDay == -1) {
-            return "The chosen date does not exist";
+        if (date.contains("Invalid")) {
+            return date;
+        } else {
+            if (indexOfDay == -1) {
+                return date + " does not exist";
+            }
         }
 
-        return "The number of steps for " + newDate + " is " + stepsArray[indexOfDay];
+        return "The number of steps for " + date + " is " + stepsArray[indexOfDay];
     }
 
     public static String updateStepsForDay() {
         System.out.print("Type the date in the format 'yyyy-MM-dd': ");
-        String date = scanner.next();
+        String date = Utilities.getDate(scanner.next());
+        int indexOfDay = Utilities.stringBinarySearch(daysArray, date);
 
-        String newDate = Utilities.formatDate(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)),
-                Integer.parseInt(date.substring(8, 10)));
-
-        int indexOfDay = Utilities.stringBinarySearch(daysArray, newDate);
-        if (indexOfDay == -1) {
-            return "The chosen date does not exist";
-        }
-        System.out.print("Type the updated number of steps: ");
-        int updatedStepsNumber = scanner.nextInt();
-
-        if (updatedStepsNumber == stepsArray[indexOfDay]) {
-            return "The new value is the same as the old value";
+        if (date.contains("Invalid")) {
+            return date;
         } else {
-            stepsArray[indexOfDay] = updatedStepsNumber;
+            if (indexOfDay == -1) {
+                return date + " does not exist";
+            }
+            System.out.print("Type the updated number of steps: ");
+            int updatedStepsNumber = scanner.nextInt();
+
+            if (updatedStepsNumber == stepsArray[indexOfDay]) {
+                return "The new value is the same as the old value";
+            } else {
+                stepsArray[indexOfDay] = updatedStepsNumber;
+            }
         }
 
-        return "Activity successfully updated for " + newDate;
+        return "Activity successfully updated for " + date;
     }
 
     public static String displayMostActiveDay() {
