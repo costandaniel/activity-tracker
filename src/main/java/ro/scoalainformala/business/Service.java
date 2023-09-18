@@ -38,6 +38,10 @@ public class Service {
     }
 
     public static String listAllDays() {
+        if (daysArray.length == 0) {
+            return "No activity added yet";
+        }
+
         return Utilities.concatenateDaySteps(daysArray, stepsArray);
     }
 
@@ -82,6 +86,9 @@ public class Service {
     }
 
     public static String displayMostActiveDay() {
+        if (daysArray.length == 0) {
+            return "No activity added yet";
+        }
 
         int maximum = stepsArray[0];
         int indexOfMaximum = 0;
@@ -96,6 +103,9 @@ public class Service {
     }
 
     public static String displayLeastActiveDay() {
+        if (daysArray.length == 0) {
+            return "No activity added yet";
+        }
 
         int minimum = stepsArray[0];
         int indexOfMinimum = 0;
@@ -110,6 +120,9 @@ public class Service {
     }
 
     public static String displayAverageStepsPerDay() {
+        if (daysArray.length == 0) {
+            return "No activity added yet";
+        }
 
         int sum = 0;
 
