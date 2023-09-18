@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class Service {
 
     static Scanner scanner = new Scanner(System.in);
-
     static int[] stepsArray = {};
     static String[] daysArray = {};
 
@@ -100,5 +99,16 @@ public class Service {
         }
 
         return "The least active day is " + daysArray[indexOfMinimum];
+    }
+
+    public static String displayAverageStepsPerDay() {
+
+        int sum = 0;
+
+        for (int steps : stepsArray) {
+            sum = sum + steps;
+        }
+
+        return "The average steps per day is " + sum / stepsArray.length;
     }
 }

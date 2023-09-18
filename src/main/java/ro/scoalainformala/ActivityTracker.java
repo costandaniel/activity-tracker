@@ -22,7 +22,7 @@ public class ActivityTracker {
                 case 4 -> Service.updateStepsForDay();
                 case 5 -> Service.displayMostActiveDay();
                 case 6 -> Service.displayLeastActiveDay();
-                case 7 -> "";
+                case 7 -> Service.displayAverageStepsPerDay();
                 case 8 -> "Goodbye!";
                 default -> "Invalid option";
             };
