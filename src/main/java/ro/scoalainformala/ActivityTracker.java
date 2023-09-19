@@ -1,9 +1,11 @@
 package ro.scoalainformala;
 
-import ro.scoalainformala.business.Service;
+import static ro.scoalainformala.business.Service.*;
 import ro.scoalainformala.menu.Menu;
 
 import java.util.Scanner;
+
+
 
 public class ActivityTracker {
     public static void main(String[] args) {
@@ -16,13 +18,13 @@ public class ActivityTracker {
             option = scanner.nextInt();
             // switch expression
             String result = switch (option) {
-                case 1 -> Service.addNewActivity();
-                case 2 -> "";
-                case 3 -> "";
-                case 4 -> "";
-                case 5 -> "";
-                case 6 -> "";
-                case 7 -> "";
+                case 1 -> addNewActivity();
+                case 2 -> listAllDays();
+                case 3 -> listStepsForAGivenDay();
+                case 4 -> updateStepsForADay();
+                case 5 -> mostActiveDay();
+                case 6 -> leastActiveDay();
+                case 7 -> averageStepsPerDays();
                 case 8 -> "Goodbye!";
                 default -> "Invalid option";
             };
