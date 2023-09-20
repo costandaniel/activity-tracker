@@ -8,16 +8,16 @@ import java.util.Arrays;
 
 public class Utilities {
 
-    public static String createDate(int year, int month, int day) {
+    public static String createFormattedDate(int year, int month, int day) {
         if (year < Year.now().getValue() - 2 || year > Year.now().getValue()) {
             return "Invalid year";
         }
-        if (month == LocalDate.now().getMonthValue() && day > LocalDate.now().getDayOfMonth()) {
+        if (month > LocalDate.now().getMonthValue() || month < 1) {
             return "Invalid month";
         }
         if (day < 1) {
             return "Invalid day";
-        } else if (day > YearMonth.of(year, month).lengthOfMonth()) {
+        } else if (day > YearMonth.of(year, month).lengthOfMonth() || (month == LocalDate.now().getMonthValue() && day > LocalDate.now().getDayOfMonth())) {
             return "Invalid day";
         }
 
@@ -30,7 +30,8 @@ public class Utilities {
         String[] formatedDates = new String[activity.length];
         int[] steps = new int[activity.length];
         for (int i = 0; i < activity.length; i++) {
-            formatedDates[i] = createDate(Integer.parseInt(activity[i].substring(0, 4)), Integer.parseInt(activity[i].substring(5, 7)), Integer.parseInt(activity[i].substring(8, 10)));
+            formatedDates[i] = createFormattedDate(Integer.parseInt(activity[i].substring(0, 4)),
+                    Integer.parseInt(activity[i].substring(5, 7)), Integer.parseInt(activity[i].substring(8, 10)));
             steps[i] = Integer.parseInt(activity[i].substring(13));
             if (steps[i] == 1) {
                 concatenated = concatenated + formatedDates[i] + " - " + steps[i] + " step" + "\n";
