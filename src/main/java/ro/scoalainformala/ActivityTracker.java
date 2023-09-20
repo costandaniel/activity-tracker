@@ -6,7 +6,16 @@ import ro.scoalainformala.menu.Menu;
 import java.util.Scanner;
 
 public class ActivityTracker {
+
+    // test -- fail
+    //static String[] day = new String[100];
+    //public static int[] step = new int[100];
+    //public static int k = 0; //number of reccords added
+
     public static void main(String[] args) {
+
+        //test only
+        //Service.test(); // 5 records initialization
 
         Scanner scanner = new Scanner(System.in);
 
@@ -17,12 +26,12 @@ public class ActivityTracker {
             // switch expression
             String result = switch (option) {
                 case 1 -> Service.addNewActivity();
-                case 2 -> "";
-                case 3 -> "";
-                case 4 -> "";
-                case 5 -> "";
-                case 6 -> "";
-                case 7 -> "";
+                case 2 -> Service.listActivity();
+                case 3 -> Service.displayDay();
+                case 4 -> Service.updateSteps();
+                case 5 -> Service.mostActiveDay();
+                case 6 -> Service.leastActiveDay();
+                case 7 -> Service.averageSteps();
                 case 8 -> "Goodbye!";
                 default -> "Invalid option";
             };
