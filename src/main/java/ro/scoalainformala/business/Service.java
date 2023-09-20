@@ -38,7 +38,11 @@ public class Service {
                 System.out.print("Add number of steps: ");
                 if (scanner.hasNextInt()) {
                     int numberOfSteps = scanner.nextInt();
-                    activity = Utilities.createActivityArray(activity, year, month, day, numberOfSteps);
+                    if (numberOfSteps < 0) {
+                        return "Number of steps cannot be less than 0";
+                    } else {
+                        activity = Utilities.createActivityArray(activity, year, month, day, numberOfSteps);
+                    }
                 } else {
                     return "Invalid steps input";
                 }
@@ -108,13 +112,20 @@ public class Service {
             if (indexOfDay == -1) {
                 return formatedDate + " does not exist";
             }
-            System.out.print("Type the updated number of steps: ");
-            int updatedStepsNumber = scanner.nextInt();
 
-            if (updatedStepsNumber == Integer.parseInt(activity[indexOfDay].substring(13))) {
-                return "The new value is the same as the old value";
+            System.out.print("Type the updated number of steps: ");
+            int updatedStepsNumber;
+            if (scanner.hasNextInt()) {
+                updatedStepsNumber = scanner.nextInt();
+                if (updatedStepsNumber < 0) {
+                    return "Number of steps cannot be less than 0";
+                } else if (updatedStepsNumber == Integer.parseInt(activity[indexOfDay].substring(13))) {
+                    return "The new value is the same as the old value";
+                } else {
+                    activity[indexOfDay] = activity[indexOfDay].replace(activity[indexOfDay], rawDate + " - " + updatedStepsNumber);
+                }
             } else {
-                activity[indexOfDay] = activity[indexOfDay].replace(activity[indexOfDay], rawDate + " - " + updatedStepsNumber);
+                return "Invalid steps input";
             }
         }
 
