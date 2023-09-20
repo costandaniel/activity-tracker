@@ -53,8 +53,7 @@ public class Service {
             } else {
                 System.out.print("Add number of steps: ");
                 if (scanner.hasNextInt()) {
-                    int numberOfSteps;
-                    numberOfSteps = scanner.nextInt();
+                    int numberOfSteps = scanner.nextInt();
                     activity = Utilities.createActivityArray(activity, year, month, day, numberOfSteps);
                 } else {
                     return "Invalid steps input";
