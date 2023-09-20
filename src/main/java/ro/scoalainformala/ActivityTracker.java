@@ -17,12 +17,12 @@ public class ActivityTracker {
             // switch expression
             String result = switch (option) {
                 case 1 -> Service.addNewActivity();
-                case 2 -> "";
-                case 3 -> "";
-                case 4 -> "";
-                case 5 -> "";
-                case 6 -> "";
-                case 7 -> "";
+                case 2 -> Service.listAllDays();
+                case 3 -> Service.displayStepsByDate();
+                case 4 -> Service.updateStepsByDate();
+                case 5 -> Service.displayMostActiveDay();
+                case 6 -> Service.displayLeastActiveDay();
+                case 7 -> Service.displayAverageStepsPerDay();
                 case 8 -> "Goodbye!";
                 default -> "Invalid option";
             };
