@@ -1,11 +1,9 @@
 package ro.scoalainformala.utilities;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Year;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 public class Utilities {
 
@@ -13,56 +11,31 @@ public class Utilities {
         if (year < Year.now().getValue() - 2 || year > Year.now().getValue()) {
             return "Invalid year";
         }
-
-        String invalidDay = "Invalid day";
-
-        if (month > LocalDate.now().getMonthValue() || month == 0) {
+        if (month == LocalDate.now().getMonthValue() && day > LocalDate.now().getDayOfMonth()) {
             return "Invalid month";
-        } else if (month == LocalDate.now().getMonthValue() && day > LocalDate.now().getDayOfMonth()) {
-            return invalidDay;
         }
-
         if (day < 1) {
-            return invalidDay;
+            return "Invalid day";
         } else if (day > YearMonth.of(year, month).lengthOfMonth()) {
-            return invalidDay;
+            return "Invalid day";
         }
 
         LocalDate localDate = LocalDate.of(year, month, day);
         return localDate.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
     }
 
-    public static int[] addIntArray(int[] firstArray, int elementToAdd) {
-        int[] newArray = new int[firstArray.length + 1];
-
-        if (firstArray.length == 0) {
-            newArray[0] = elementToAdd;
-            return newArray;
-        } else {
-            for (int i = 0; i < firstArray.length; i++) {
-                newArray[i] = firstArray[i];
-            }
-            newArray[firstArray.length] = elementToAdd;
-            return newArray;
-        }
-
-    }
-
-    public static String concatenateDaySteps(String[] days, int[] steps) {
+    public static String concatenateDaySteps(String[] days) {
         String concatenated = "";
+        String[] formatedDates = new String[days.length];
+        int[] steps = new int[days.length];
         for (int i = 0; i < days.length; i++) {
-            if (i == days.length - 1) {
-                if (steps[i] == 1) {
-                    concatenated = concatenated + days[i] + " - " + steps[i] + " step";
-                } else {
-                    concatenated = concatenated + days[i] + " - " + steps[i] + " steps";
-                }
+            LocalDate localDate = LocalDate.of(Integer.parseInt(days[i].substring(0, 4)), Integer.parseInt(days[i].substring(5, 7)), Integer.parseInt(days[i].substring(8, 10)));
+            formatedDates[i] = localDate.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
+            steps[i] = Integer.parseInt(days[i].substring(13));
+            if (steps[i] == 1) {
+                concatenated = concatenated + formatedDates[i] + " - " + steps[i] + " step" + "\n";
             } else {
-                if (steps[i] == 1) {
-                    concatenated = concatenated + days[i] + " - " + steps[i] + " step" + ", " + "\n";
-                } else {
-                    concatenated = concatenated + days[i] + " - " + steps[i] + " steps" + ", " + "\n";
-                }
+                concatenated = concatenated + formatedDates[i] + " - " + steps[i] + " steps" + "\n";
             }
         }
 
@@ -90,43 +63,20 @@ public class Utilities {
         return -1;
     }
 
-    public static LocalDate[] makeDateArray(LocalDate[] array, int year, int month, int day) {
-        LocalDate[] dateArray = new LocalDate[array.length + 1];
+    public static String[] makeDateArray(String[] array, int year, int month, int day, int numberOfSteps) {
+        String[] dateArray = new String[array.length + 1];
         LocalDate localDate = LocalDate.of(year, month, day);
 
         if (array.length == 0) {
-            dateArray[0] = localDate;
+            dateArray[0] = localDate + " - " + numberOfSteps;
             return dateArray;
         } else {
             for (int i = 0; i < array.length; i++) {
                 dateArray[i] = array[i];
             }
-            dateArray[array.length] = localDate;
+            dateArray[array.length] = localDate + " - " + numberOfSteps;
             return dateArray;
         }
-    }
-
-    public static String[] formatDateArray(LocalDate[] dateArray) {
-        String[] days = new String[dateArray.length];
-        for (int i = 0; i < dateArray.length; i++) {
-            days[i] = dateArray[i].format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
-        }
-
-        return days;
-    }
-
-    public static String[] addStringArray(String[] array, String elementToAdd) {
-        String[] newArray = new String[array.length + 1];
-        if (array.length == 0) {
-            newArray[0] = elementToAdd;
-            return newArray;
-        } else {
-            for (int i = 0; i < array.length; i++) {
-                newArray[i] = array[i];
-            }
-        }
-        newArray[array.length] = elementToAdd;
-        return newArray;
     }
 
 }
