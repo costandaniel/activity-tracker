@@ -2,6 +2,8 @@ package ro.scoalainformala.business;
 
 import ro.scoalainformala.utilities.Utilities;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Service {
@@ -11,11 +13,22 @@ public class Service {
     static String[] daysArray = {};
     static String invalid = "Invalid";
     static String noActivityAddedYet = "No activity added yet";
+    static LocalDate[] datesArray = {};
 
     public static String addNewActivity() {
-        System.out.print("Add new date in the format 'yyyy-MM-dd': ");
-        String date = Utilities.getDate(scanner.next());
+        System.out.println("Add new date, but be careful that dates must be entered chronologically");
+        System.out.print("Year: ");
+        int year = scanner.nextInt();
+        System.out.print("Month: ");
+        int month = scanner.nextInt();
+        System.out.print("Day: ");
+        int day = scanner.nextInt();
+        String date = Utilities.createDate(year, month, day);
+
+        datesArray = Utilities.makeDateArray(datesArray, year, month, day);
+
         int indexOfDay = Utilities.stringBinarySearch(daysArray, date);
+        int numberOfSteps;
 
         if (date.contains(invalid)) {
             return date;
@@ -23,10 +36,9 @@ public class Service {
             if (indexOfDay != -1) {
                 return date + " already exists";
             } else {
-                daysArray = Utilities.addStringArray(daysArray, date);
+                daysArray = Utilities.formatDateArray(datesArray);
             }
             System.out.print("Add number of steps: ");
-            int numberOfSteps;
             if (scanner.hasNextInt()) {
                 numberOfSteps = scanner.nextInt();
                 stepsArray = Utilities.addIntArray(stepsArray, numberOfSteps);
@@ -47,8 +59,15 @@ public class Service {
     }
 
     public static String displayStepsForDay() {
-        System.out.print("Type the date in the format 'yyyy-MM-dd': ");
-        String date = Utilities.getDate(scanner.next());
+        System.out.println("Desired date: ");
+        System.out.print("Year: ");
+        int year = scanner.nextInt();
+        System.out.print("Month: ");
+        int month = scanner.nextInt();
+        System.out.print("Day: ");
+        int day = scanner.nextInt();
+
+        String date = Utilities.createDate(year, month, day);
         int indexOfDay = Utilities.stringBinarySearch(daysArray, date);
 
         if (date.contains(invalid)) {
@@ -63,8 +82,15 @@ public class Service {
     }
 
     public static String updateStepsForDay() {
-        System.out.print("Type the date in the format 'yyyy-MM-dd': ");
-        String date = Utilities.getDate(scanner.next());
+        System.out.println("Desired date: ");
+        System.out.print("Year: ");
+        int year = scanner.nextInt();
+        System.out.print("Month: ");
+        int month = scanner.nextInt();
+        System.out.print("Day: ");
+        int day = scanner.nextInt();
+
+        String date = Utilities.createDate(year, month, day);
         int indexOfDay = Utilities.stringBinarySearch(daysArray, date);
 
         if (date.contains(invalid)) {

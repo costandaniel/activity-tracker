@@ -1,11 +1,15 @@
 package ro.scoalainformala.utilities;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Year;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class Utilities {
 
-    public static String formatDate(int year, int month, int day) {
+    public static String createDate(int year, int month, int day) {
         if (year < Year.now().getValue() - 2 || year > Year.now().getValue()) {
             return "Invalid year";
         }
@@ -18,61 +22,14 @@ public class Utilities {
             return invalidDay;
         }
 
-        String newMonth = switch (month) {
-            case 1 -> "Jan";
-            case 2 -> "Feb";
-            case 3 -> "Mar";
-            case 4 -> "Apr";
-            case 5 -> "May";
-            case 6 -> "Jun";
-            case 7 -> "Jul";
-            case 8 -> "Aug";
-            case 9 -> "Sep";
-            case 10 -> "Oct";
-            case 11 -> "Nov";
-            case 12 -> "Dec";
-            default -> "Invalid month";
-        };
-
         if (day < 1) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Jan") && day > 31) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Mar") && day > 31) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Apr") && day > 30) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("May") && day > 31) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Jun") && day > 30) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Jul") && day > 31) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Aug") && day > 31) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Sep") && day > 30) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Oct") && day > 31) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Nov") && day > 30) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Dec") && day > 31) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Feb") && year / 4 == 0 && day > 29) {
-            System.out.println(invalidDay);
-        } else if (newMonth.equals("Feb") && year / 4 != 0 && day > 28) {
-            System.out.println(invalidDay);
+            return invalidDay;
+        } else if (day > YearMonth.of(year, month).lengthOfMonth()) {
+            return invalidDay;
         }
 
-        return newMonth + " " + day + ", " + year;
-    }
-
-    public static String getDate(String date) {
-        if (date.substring(0, 4).contains("-") || date.substring(5, 7).contains("-") || date.substring(8, 10).contains("-") || Integer.parseInt(date.substring(8, 10)) == 0) {
-            return "Invalid date input";
-        }
-        return formatDate(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)),
-                Integer.parseInt(date.substring(8, 10)));
+        LocalDate localDate = LocalDate.of(year, month, day);
+        return localDate.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
     }
 
     public static int[] addIntArray(int[] firstArray, int elementToAdd) {
@@ -91,29 +48,21 @@ public class Utilities {
 
     }
 
-    public static String[] addStringArray(String[] firstArray, String elementToAdd) {
-        String[] newArray = new String[firstArray.length + 1];
-
-        if (firstArray.length == 0) {
-            newArray[0] = elementToAdd;
-            return newArray;
-        } else {
-            for (int i = 0; i < firstArray.length; i++) {
-                newArray[i] = firstArray[i];
-            }
-            newArray[firstArray.length] = elementToAdd;
-            return newArray;
-        }
-
-    }
-
     public static String concatenateDaySteps(String[] days, int[] steps) {
         String concatenated = "";
         for (int i = 0; i < days.length; i++) {
             if (i == days.length - 1) {
-                concatenated = concatenated + days[i] + " - " + steps[i] + " steps";
+                if (steps[i] == 1) {
+                    concatenated = concatenated + days[i] + " - " + steps[i] + " step";
+                } else {
+                    concatenated = concatenated + days[i] + " - " + steps[i] + " steps";
+                }
             } else {
-                concatenated = concatenated + days[i] + " - " + steps[i] + " steps" + ", " + "\n";
+                if (steps[i] == 1) {
+                    concatenated = concatenated + days[i] + " - " + steps[i] + " step" + ", " + "\n";
+                } else {
+                    concatenated = concatenated + days[i] + " - " + steps[i] + " steps" + ", " + "\n";
+                }
             }
         }
 
@@ -139,6 +88,45 @@ public class Utilities {
         }
 
         return -1;
+    }
+
+    public static LocalDate[] makeDateArray(LocalDate[] array, int year, int month, int day) {
+        LocalDate[] dateArray = new LocalDate[array.length + 1];
+        LocalDate localDate = LocalDate.of(year, month, day);
+
+        if (array.length == 0) {
+            dateArray[0] = localDate;
+            return dateArray;
+        } else {
+            for (int i = 0; i < array.length; i++) {
+                dateArray[i] = array[i];
+            }
+            dateArray[array.length] = localDate;
+            return dateArray;
+        }
+    }
+
+    public static String[] formatDateArray(LocalDate[] dateArray) {
+        String[] days = new String[dateArray.length];
+        for (int i = 0; i < dateArray.length; i++) {
+            days[i] = dateArray[i].format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
+        }
+
+        return days;
+    }
+
+    public static String[] addStringArray(String[] array, String elementToAdd) {
+        String[] newArray = new String[array.length + 1];
+        if (array.length == 0) {
+            newArray[0] = elementToAdd;
+            return newArray;
+        } else {
+            for (int i = 0; i < array.length; i++) {
+                newArray[i] = array[i];
+            }
+        }
+        newArray[array.length] = elementToAdd;
+        return newArray;
     }
 
 }
