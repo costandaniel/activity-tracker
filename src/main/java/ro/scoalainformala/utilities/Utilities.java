@@ -15,9 +15,7 @@ public class Utilities {
         if (month > LocalDate.now().getMonthValue() || month < 1) {
             return "Invalid month";
         }
-        if (day < 1) {
-            return "Invalid day";
-        } else if (day > YearMonth.of(year, month).lengthOfMonth() || (month == LocalDate.now().getMonthValue() && day > LocalDate.now().getDayOfMonth())) {
+        if (day < 1 || day > YearMonth.of(year, month).lengthOfMonth() || (month == LocalDate.now().getMonthValue() && day > LocalDate.now().getDayOfMonth())) {
             return "Invalid day";
         }
 
