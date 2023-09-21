@@ -26,4 +26,34 @@ public class  Service {
        }
         return "All days listed";
     }
+    public static String displayStepsForGivenDay() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Please enter the day for wich you want the steps to be displayed: ");
+        String day = sc.next();
+
+        int low = 0;
+        int high = c;
+        int item = Integer.parseInt(day.replace("-", ""));
+        int poz = -1;
+
+        while(low <= high ) {
+            int mid = (low + high) / 2;
+            int guess = Integer.parseInt(days[mid].replace("-",""));
+            if( guess == item ) {
+                poz = mid;
+            }
+            if( guess > item ) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        if ( poz == -1) {
+            System.out.print(" Invalid day ");
+        }
+        System.out.println("For the day: " + day + " the steps registered are: " + steps[poz]);
+
+        return "Steps displayd for the given day";
+    }
 }
